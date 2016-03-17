@@ -8,4 +8,5 @@ from .NumNode import *
 from .VarNode import * 
 from .StrNode import *
 from .GoToNode import * 
+from .PrintNode import * 
 from .ExprNode import * 

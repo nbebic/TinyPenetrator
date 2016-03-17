@@ -68,6 +68,8 @@ def statement(input):
         two = parse_expr(input[relop+1:then])
         rest = statement(input[then+1:])
         return IfNode(one, input[relop], two, rest)
+    if op == "PRINT":
+        return PrintNode(input[1:])
 
 
 

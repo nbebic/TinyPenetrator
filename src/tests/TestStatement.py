@@ -16,3 +16,7 @@ class TestStatement(unittest.TestCase):
     def test_goto(self):
         e = statement(["GOTO", "5", "+", "2"])
         self.assertIsInstance(e, GoToNode)
+
+    def test_print(self):
+        e = statement(["PRINT", "5", "+", "2"])
+        self.assertIsInstance(e, PrintNode)
