@@ -55,15 +55,16 @@ def parse_expr(expr, term=False):
 
     Returns: ExprNode
     """
-    if is_number(expr):
-        return NumNode(int(expr))
-    if is_var(expr):
-        return VarNode(c)
+    if len(expr) == 1:
+        if is_number(expr[0]):
+            return NumNode(int(expr[0]))
+        if is_var(expr[0]):
+            return VarNode(expr[0])
     res = ExprNode()
     brackets = 0
     parse_left = False
-    operand_right = ""
-    operand_left = ""
+    operand_right = []
+    operand_left = []
     # go through given argument backwards
     for c in expr[::-1]:
         if c == "(":
@@ -75,9 +76,9 @@ def parse_expr(expr, term=False):
             res.operator = c
         else:
             if not parse_left:
-                operand_right += c
+                operand_right.append(c)
             else:
-                operand_left += c
+                operand_left.append(c)
 
     if is_term(operand_right):
         res.right = parse_expr(without_brackets(operand_right[::-1]), True)
