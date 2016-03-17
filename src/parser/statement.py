@@ -1,7 +1,7 @@
 ﻿import re
-import parser.ParseException
-from parser.ast import *
-from parser.expression import parse_expr
+import ParseException
+from ast import *
+from expression import parse_expr
 
 def statement(input:list):
     """
