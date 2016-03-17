@@ -1,10 +1,5 @@
-src/*.pyc
-src/tests/*pyc
-src/parser/*.pyc
-src/lexer/*.pyc
-
 src/__pycache__/
+src/lexer/__pycache__/
 src/parser/__pycache__/
 src/parser/ast/__pycache__/
-src/tests/__pycache__/				
-
+src/tests/__pycache__/

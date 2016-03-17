@@ -1,7 +1,7 @@
 ﻿import re
-import ParseException
-from ast import *
-from expression import parse_expr
+from .ParseException import * 
+from .ast import *
+from .expression import parse_expr
 
 def parse_varlist(t):
     retval = []
