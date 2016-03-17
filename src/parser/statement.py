@@ -6,13 +6,14 @@ from .expression import parse_expr
 def parse_varlist(t):
     retval = []
     for i in range(len(t)):
-        if i % 2 == 0:
+        if i % 2 == 1:
             if t[i] != ',':
                 raise ParseException()
         else:
-            if len(t[i]) > 1 and (not t[i][0] in 'QWERTYUIOPASDFGHJKLZXCVBNM'):
+            if len(t[i]) > 1 or (not t[i][0] in 'QWERTYUIOPASDFGHJKLZXCVBNM'):
                 raise ParseException()
             retval.append(t[i])
+    return retval
 
 def parse_exprlist(t):
     retval = []
@@ -24,6 +25,7 @@ def parse_exprlist(t):
             else:
                 retval.append(parse_expr(t[last+1:i-1]))
             last = i
+    return retval
 
 def statement(input):
     """
