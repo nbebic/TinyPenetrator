@@ -48,11 +48,13 @@ def statement(input):
         if input[2] != '=':
             raise ParseException()
         var = input[1]
-        return LetNode(var, parse_expr(input[3:-1]))
+        return LetNode(var, parse_expr(input[3:]))
     if (op == 'GOSUB'):
-        return GosubNode(parse_expr(input[1:-1]))
+        return GosubNode(parse_expr(input[1:]))
     if (op == 'INPUT'):
-        return InputNode(parse_varlist(input[1:-1]))
+        return InputNode(parse_varlist(input[1:]))
+    if op == "GOTO":
+        return GoToNode(parse_expr(input[1:]))
 
 
 
