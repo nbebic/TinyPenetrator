@@ -1,13 +1,7 @@
 
 from ast import NumNode
 from ast import VarNode
-
-class ExprNode():
-    
-    right = None
-    left = None 
-
-    operator = None 
+from ast import ExprNode
 
 
 def is_factor(expr):
