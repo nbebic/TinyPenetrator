@@ -21,11 +21,15 @@ def parse_exprlist(t):
     for i in range(len(t)):
         if t[i] == ',':
             if last == i - 2 and t[i-1][0] == '"':
-                retval.append(StrNode(t[i-1][1:-2]))
+                retval.append(StrNode(t[i-1][1:-1]))
             else:
-                retval.append(parse_expr(t[last+1:i-1]))
+                retval.append(parse_expr(t[last+1:i]))
             last = i
     return retval
+
+def linq_indexOfFirst(l, f):
+    for i in range(len(l)):
+        if f(l[i]): return i
 
 def statement(input):
     """
@@ -53,6 +57,15 @@ def statement(input):
         return GosubNode(parse_expr(input[1:-1]))
     if (op == 'INPUT'):
         return InputNode(parse_varlist(input[1:-1]))
+    if (op == 'IF'):
+        relop = linq_indexOfFirst(input, lambda x: '<' in x or '>' in x or '=' in x)
+        then = linq_indexOfFirst(input, lambda x: x == 'THEN')
+        if relop == None or then == None:
+            raise ParseException()
+        one = parse_expr(input[1:relop])
+        two = parse_expr(input[relop+1:then])
+        rest = statement(input[then+1:])
+        return IfNode(one, input[relop], two, rest)
 
 
 
