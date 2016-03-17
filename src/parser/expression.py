@@ -47,7 +47,7 @@ def without_brackets(expr):
         return expr[1:-1]
     return expr
 
-def parse_expr(expr, term=False):
+def parse_expr(expr):
     """
     Parses given string 
 
@@ -55,6 +55,9 @@ def parse_expr(expr, term=False):
 
     Returns: ExprNode
     """
+    term = False
+    if is_term(expr):
+        term = True
     if len(expr) == 1:
         if is_number(expr[0]):
             return NumNode(int(expr[0]))
@@ -80,14 +83,8 @@ def parse_expr(expr, term=False):
             else:
                 operand_left.append(c)
 
-    if is_term(operand_right):
-        res.right = parse_expr(without_brackets(operand_right[::-1]), True)
-    else:
-        res.right = parse_expr(without_brackets(operand_right[::-1]), False)
-    if is_term(operand_left):
-        res.left = parse_expr(without_brackets(operand_left[::-1]), True)
-    else:
-        res.left = parse_expr(without_brackets(operand_left[::-1]), False)
+    res.right = parse_expr(without_brackets(operand_right[::-1]))
+    res.left = parse_expr(without_brackets(operand_left[::-1]))
     
     return res
 
