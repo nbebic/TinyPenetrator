@@ -14,6 +14,13 @@ class TestExpression(unittest.TestCase):
         self.assertEqual(e.left.number, 1)
         self.assertEqual(e.right.number, 2)
         self.assertEqual(e.operator, "+")
+    
+    def test_addition_many(self):
+        e = parse_expr(["1", "+", "2", "+", "3"])
+        self.assertEqual(e.left.left.number, 1)
+        self.assertEqual(e.left.right.number, 2)
+        self.assertEqual(e.operator, "+")
+        self.assertEqual(e.right.number, 3)
 
     def test_subtraction(self):
         e = parse_expr(["1", "-", "2"])

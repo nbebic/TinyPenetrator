@@ -74,7 +74,7 @@ def parse_expr(expr):
             brackets += 1
         if c == ")":
             brackets -= 1
-        if ((term and c in "+-*/") or (not term and c in "+-")) and brackets == 0:
+        if ((term and c in "+-*/") or (not term and c in "+-")) and brackets == 0 and not parse_left:
             parse_left = True
             res.operator = c
         else:
