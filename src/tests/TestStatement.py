@@ -12,3 +12,7 @@ class TestStatement(unittest.TestCase):
     def test_let(self):
         e = statement(["LET", "X", "=", "5"])
         self.assertIsInstance(e, LetNode)
+
+    def test_goto(self):
+        e = statement(["GOTO", "5", "+", "2"])
+        self.assertIsInstance(e, GoToNode)
