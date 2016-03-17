@@ -38,28 +38,28 @@ def statement(input):
     input: list of tokens to parse
     """
     op = input[0]
-    if (op == 'RETURN'):
+    if op == 'RETURN':
         return ReturnNode()
-    if (op == 'CLEAR'):
+    if op == 'CLEAR':
         return ClearNode()
-    if (op == 'LIST'):
+    if op == 'LIST':
         return ListNode()
-    if (op == 'RUN'):
+    if op == 'RUN':
         return RunNode()
-    if (op == 'END'):
+    if op == 'END':
         return EndNode()
-    if (op == 'LET'):
+    if op == 'LET':
         if input[2] != '=':
             raise ParseException()
         var = input[1]
         return LetNode(var, parse_expr(input[3:]))
-    if (op == 'GOSUB'):
+    if op == 'GOSUB':
         return GosubNode(parse_expr(input[1:]))
-    if (op == 'INPUT'):
+    if op == 'INPUT':
         return InputNode(parse_varlist(input[1:]))
     if op == "GOTO":
         return GoToNode(parse_expr(input[1:]))
-    if (op == 'IF'):
+    if op == 'IF':
         relop = linq_indexOfFirst(input, lambda x: '<' in x or '>' in x or '=' in x)
         then = linq_indexOfFirst(input, lambda x: x == 'THEN')
         if relop == None or then == None:
