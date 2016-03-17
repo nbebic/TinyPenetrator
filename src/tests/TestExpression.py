@@ -56,3 +56,7 @@ class TestExpression(unittest.TestCase):
         self.assertEqual(e.right.right.number, 3)
         self.assertEqual(e.right.operator, "+")
         self.assertEqual(e.operator, "+")
+
+    def test_negative_expression(self):
+        e = parse_expr(["-", "1"])
+        self.assertEqual(e.right.number, 1)

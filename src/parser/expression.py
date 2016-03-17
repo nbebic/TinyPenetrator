@@ -82,7 +82,10 @@ def parse_expr(expr):
                 operand_right.append(c)
             else:
                 operand_left.append(c)
-
+    if len(operand_left) == 0:
+        operand_left = ["0"]
+    if len(operand_right) == 0:
+        operand_right = ["0"]
     res.right = parse_expr(without_brackets(operand_right[::-1]))
     res.left = parse_expr(without_brackets(operand_left[::-1]))
     
