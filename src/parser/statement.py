@@ -25,6 +25,8 @@ def statement(input:list):
             raise ParseException()
         var = input[1]
         return LetNode(var, parse_expr(input[3:-1]))
+    if (op == 'GOSUB'):
+        return GosubNode(parse_expr(input[1:-1]))
 
 
 
