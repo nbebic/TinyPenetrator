@@ -69,7 +69,7 @@ def statement(input):
         rest = statement(input[then+1:])
         return IfNode(one, input[relop], two, rest)
     if op == "PRINT":
-        return PrintNode(input[1:])
+        return PrintNode(parse_exprlist(input[1:]))
 
 
 
