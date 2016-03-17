@@ -1,0 +1,4 @@
+src/*.pyc
+src/tests/*pyc
+src/parser/*.pyc
+src/lexer/*.pyc

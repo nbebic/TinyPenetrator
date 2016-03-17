@@ -1,7 +1,7 @@
 
-from ast import NumNode
-from ast import VarNode
-from ast import ExprNode
+from .ast import NumNode
+from .ast import VarNode
+from .ast import ExprNode
 
 
 def is_factor(expr):

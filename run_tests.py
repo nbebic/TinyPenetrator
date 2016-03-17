@@ -1,5 +1,5 @@
 
-from test import *
+from src.tests import * 
 
 import unittest
 
