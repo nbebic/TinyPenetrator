@@ -1,4 +1,7 @@
-﻿class ClearNode(AstNode):
+﻿
+from .ASTNode import * 
+
+class ClearNode(ASTNode):
     """description of class"""
     def codegen():
         pass
@@ -6,15 +9,15 @@
 
 # to be refactored
 
-class ListNode(AstNode):
+class ListNode(ASTNode):
     def codegen():
         pass
 
-class RunNode(AstNode):
+class RunNode(ASTNode):
     def codegen():
         pass
 
-class EndNode(AstNode):
+class EndNode(ASTNode):
     def codegen():
         pass
 
