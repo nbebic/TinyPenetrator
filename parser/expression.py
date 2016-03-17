@@ -51,7 +51,7 @@ def parse_expr(expr, term=False):
     """
     Parses given string 
 
-    expr: string to parse 
+    expr: list of tokens
 
     Returns: ExprNode
     """
