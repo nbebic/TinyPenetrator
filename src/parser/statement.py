@@ -2,6 +2,7 @@
 from .ParseException import * 
 from .ast import *
 from .expression import parse_expr, is_number
+from .get_curline import * 
 
 def parse_varlist(t):
     retval = []
@@ -75,10 +76,6 @@ def statement(input):
     if len(op) >= 3 and op[0:3] == "REM":
         return None
 
-curLine = 0
-def get_curline():
-    global curLine
-    return curLine
 
 def parse_program(t):
     global curLine
