@@ -6,7 +6,7 @@ def gencode(prog_list):
     a = sorted(prog_list, key=lambda x: x.line)
     s = """
 \tORG 32768
-\tld a, 1
+\tld a, 2
 \tcall 5633
 \tjp main
 print_str:

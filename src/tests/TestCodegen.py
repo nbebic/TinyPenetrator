@@ -43,9 +43,9 @@ class TestCodegen(unittest.TestCase):
 
     def test_all(self):
         s = """
-10 PRINT "HELLO, WORLD!"
-20 GOTO 20
+10 GOTO 10
         """
         s = do_all(s)
+        print(s)
         pass
 
