@@ -22,6 +22,9 @@ class TestStatement(unittest.TestCase):
         e = statement(["PRINT", "5", "+", "2"])
         self.assertIsInstance(e, PrintNode)
 
+        e = statement(["PRINT", "\"fhjsdhjfsk\""])
+        self.assertIsInstance(e, PrintNode)
+
     def test_all(self):
         a = """
         10 LET X = 7
