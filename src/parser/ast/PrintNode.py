@@ -3,6 +3,8 @@ from .ASTNode import ASTNode
 
 from .ExprNode import ExprNode
 from .StrNode import StrNode
+from .VarNode import VarNode
+from .NumNode import NumNode
 from ..ParseException import *
 
 class PrintNode(ASTNode):
@@ -24,6 +26,14 @@ class PrintNode(ASTNode):
             elif isinstance(e, StrNode):
                 s += "\tLD HL,str%d\n" % e.index
                 s += "\tCALL print_str\n"
+            elif isinstance(e, NumNode):
+                s += e.codegen()
+                s += "\tPOP BC\n"
+                s += "\tCALL print_num\n"
+            elif isinstance(e, VarNode):
+                s += e.codegen()
+                s += "\tPOP BC\n"
+                s += "\tCALL print_num\n"
             else:
                 raise ParseException("Use print with expression or string")
         return s
