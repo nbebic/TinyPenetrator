@@ -18,7 +18,7 @@ class IfNode(ASTNode):
         s += """
 \tPOP DE
 \tPOP HL
-\tLF F, 0
+\tLD F, 0
 \tSBC HL, DE
 """
         nxtlbl = 'next%d' % nexts

@@ -1,8 +1,8 @@
-import unittest 
+﻿import unittest 
 
 from ..parser.ast import *
 from ..parser import *
-
+from .. import *
 class TestCodegen(unittest.TestCase):
     
     def setUp(self):
@@ -27,4 +27,14 @@ class TestCodegen(unittest.TestCase):
         code = IfNode(NumNode(5), '>', NumNode(2), ReturnNode())
         st = code.codegen()
         self.assertEqual(1,1)
+    
+    def test_all(self):
+        s = """
+10 LET X = 3
+20 LET Y = 5
+30 IF X < Y THEN GOTO 10
+40 RETURN
+        """
+        s = do_all(s)
         pass
+

@@ -7,7 +7,7 @@ class LineNode(ASTNode):
         self.line = line
 
     def codegen(self):
-        s = "line %d" % line
-        s += stmt.codegen()
+        s = "\nline%s:\n" % self.line
+        s += self.stmt.codegen()
         return s
 
