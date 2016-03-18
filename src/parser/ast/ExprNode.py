@@ -21,7 +21,7 @@ class ExprNode(ASTNode):
 """
 
         sub = """
-\tCCF
+\tAND A
 \tSBC HL, DE
 """
         
