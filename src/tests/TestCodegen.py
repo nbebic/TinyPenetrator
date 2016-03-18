@@ -37,7 +37,7 @@ class TestCodegen(unittest.TestCase):
 
     def test_all(self):
         s = """
-10 PRINT "HELLO WORLD!"
+10 IF 1<2 THEN IF 2 < 3 THEN GOTO 10
         """
         s = do_all(s)
         pass
