@@ -32,6 +32,7 @@ main:
     for l in a:
         s += l.codegen()
     s += '\nvars: rw 26\n'
+    s += CONSTANTS_CODE
     return s
 
 def do_all(s):
