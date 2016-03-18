@@ -6,6 +6,28 @@ def gencode(prog_list):
     a = sorted(prog_list, key=lambda x: x.line)
     s = """
 \tORG 32768
+\tjmp main
+print_str:
+\tld a, (hl)
+\tor a
+\tjp z, .end
+.loop:
+\tpush hl
+\tcall $0AD9
+\tpop hl
+\tinc hl
+\tld a, (hl)
+\tor a
+\tjp nz, .loop
+.end:
+\tret
+
+print_num:
+\tcall $2D2B
+\tcall $2DE3
+\tret
+
+main:
 """
     for l in a:
         s += l.codegen()
