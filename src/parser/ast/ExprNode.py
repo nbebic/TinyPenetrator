@@ -30,16 +30,16 @@ class ExprNode(ASTNode):
         div = """
         """
         s = ""
-        s += left.codegen()
-        s += right.codegen()
+        s += self.left.codegen()
+        s += self.right.codegen()
         s += prolog
-        if operator == '+':
+        if self.operator == '+':
             s += add
-        elif operator == '-':
+        elif self.operator == '-':
             s += sub
-        elif operator == '*':
+        elif self.operator == '*':
             s += mul
-        elif operator == '/':
+        elif self.operator == '/':
             s += div
         s += epilog
         return s
