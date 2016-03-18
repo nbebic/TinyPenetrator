@@ -5,6 +5,4 @@ from .TestStatement import *
 from .TestListParsers import *
 
 
-from .TestNumNode import * 
-from .TestVarNode import * 
 from .TestCodegen import *
