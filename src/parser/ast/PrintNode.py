@@ -1,4 +1,4 @@
-
+﻿
 from .ASTNode import ASTNode
 class PrintNode(ASTNode):
     """
@@ -8,4 +8,7 @@ class PrintNode(ASTNode):
     """
     def __init__(self, expr):
         self.expr = expr
+
+    def codegen(self):
+        return "\t ; PRINT"
 
