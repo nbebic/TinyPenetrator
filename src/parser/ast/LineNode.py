@@ -6,3 +6,8 @@ class LineNode(ASTNode):
         self.stmt = stmt
         self.line = line
 
+    def codegen(self):
+        s = "line %d" % line
+        s += stmt.codegen()
+        return s
+

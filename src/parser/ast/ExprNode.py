@@ -29,16 +29,17 @@ class ExprNode(ASTNode):
 
         div = """
         """
-
-        left.codegen()
-        right.codegen()
-        asm_output(prolog)
+        s = ""
+        s += left.codegen()
+        s += right.codegen()
+        s += prolog
         if operator == '+':
-            asm_output(add)
+            s += add
         elif operator == '-':
-            asm_output(sub)
+            s += sub
         elif operator == '*':
-            asm_output(mul)
+            s += mul
         elif operator == '/':
-            asm_output(div)
-        asm_output(epilog)
+            s += div
+        s += epilog
+        return s
