@@ -1,7 +1,7 @@
 ﻿import re
 from .ParseException import * 
 from .ast import *
-from .expression import parse_expr
+from .expression import parse_expr, is_number
 
 def parse_varlist(t):
     retval = []
@@ -15,7 +15,8 @@ def parse_varlist(t):
             retval.append(t[i])
     return retval
 
-def parse_exprlist(t):
+def parse_exprlist(p):
+    t = p + [',']
     retval = []
     last = -1
     for i in range(len(t)):
@@ -25,6 +26,7 @@ def parse_exprlist(t):
             else:
                 retval.append(parse_expr(t[last+1:i]))
             last = i
+
     return retval
 
 def linq_indexOfFirst(l, f):
@@ -71,7 +73,18 @@ def statement(input):
     if op == "PRINT":
         return PrintNode(parse_exprlist(input[1:]))
 
-
-
-if (__name__ == "__main__"):
-    pass
+def parse_program(t):
+    p = t + ['\n']
+    last = -1
+    retval = []
+    for i in range(len(p)):
+        if p[i] == '\n':
+            if last == i-1:
+                last = i
+                continue
+            if is_number(p[last+1]):
+                retval.append(LineNode(statement(p[last+2:i]), p[last+1]))
+            else:
+                retval.append(LineNode(statement(p[last+1:i])))
+            last = i
+    return retval

@@ -1,4 +1,4 @@
-
+﻿
 def lex(input: str):
     tokens = []
     curtoken = ''
