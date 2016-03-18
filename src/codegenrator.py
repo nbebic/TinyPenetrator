@@ -31,6 +31,7 @@ main:
 """
     for l in a:
         s += l.codegen()
+    s += '\nvars: rw 26\n'
     return s
 
 def do_all(s):
