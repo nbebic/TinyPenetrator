@@ -8,8 +8,8 @@ class ExprNode(ASTNode):
     operator = None
     def codegen(self):
         prolog = """
-        \tPOP HL
-        \tPOP DE"""
+        \tPOP DE
+        \tPOP HL"""
 
         epilog = """
         \tPUSH HL

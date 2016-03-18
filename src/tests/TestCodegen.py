@@ -22,3 +22,9 @@ class TestCodegen(unittest.TestCase):
         code = NumNode(5).codegen()
         self.assertEqual(len(code.split("\n")), 4)
         self.assertTrue("HL,5" in code)
+
+    def test_if(self):
+        code = IfNode(NumNode(5), '>', NumNode(2), ReturnNode())
+        st = code.codegen()
+        self.assertEqual(1,1)
+        pass

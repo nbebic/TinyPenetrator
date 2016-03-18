@@ -3,7 +3,7 @@ from .ASTNode import *
 
 class ReturnNode(ASTNode):
     """description of class"""
-    def codegen():
+    def codegen(self):
         return "\t RET"
 
 
