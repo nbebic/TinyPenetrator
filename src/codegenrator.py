@@ -3,7 +3,6 @@ from .parser.ast import *
 from .lexer import *
 
 def gencode(prog_list):
-    global CONSTANTS_CODE
     a = sorted(prog_list, key=lambda x: x.line)
     s = """
 \tORG 32768
@@ -33,7 +32,8 @@ main:
     for l in a:
         s += l.codegen()
     s += '\nvars: rw 26\n'
-    s += CONSTANTS_CODE
+    for constant in CONSTANTS_CODE:
+        s += constant
     return s
 
 def do_all(s):
