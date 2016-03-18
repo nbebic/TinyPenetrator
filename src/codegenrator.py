@@ -53,22 +53,22 @@ _mult_loop:
 \t
 \tret
 
-div_ac_de:
-\tld hl, 0
+div_hl_c:
+\txor a
 \tld b, 16
 
 _div_loop:
-\tsll c
+\tadd hl, hl
 \trla
-\tadc hl, hl
-\tsbc hl, de
-\tjr nc, $+4
-\tadd  hl, de
-\tdec  c
+\tcp c
+\tjr c, $+4
+\tsub c
+\tinc l
 \t
 \tdjnz _div_loop
 \t
 \tret
+
 
 main:
 """

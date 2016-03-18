@@ -44,7 +44,7 @@ call mult_de_bc
 """
 
         div = """
-div_ac_de
+call div_hl_c
 """
         s = ""
         s += self.left.codegen()
