@@ -31,7 +31,7 @@ main:
 """
     for l in a:
         s += l.codegen()
-    s += '\nvars: rw 26\n'
+    s += '\nvars: dw 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0\n'
     for constant in CONSTANTS_CODE:
         s += constant
     return s
