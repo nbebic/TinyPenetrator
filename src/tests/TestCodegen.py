@@ -29,10 +29,10 @@ class TestCodegen(unittest.TestCase):
         self.assertEqual(1,1)
 
     def test_print(self):
-        code = PrintNode(StrNode("hello world")).codegen()
+        code = PrintNode([StrNode("hello world")]).codegen()
         self.assertEqual(len(code.split("\n")), 3)
 
-        code = PrintNode(parse_expr(["2", "+", "3"])).codegen()
+        code = PrintNode([parse_expr(["2", "+", "3"])]).codegen()
         self.assertEqual(len(code.split("\n")), 16)
 
     def test_all(self):

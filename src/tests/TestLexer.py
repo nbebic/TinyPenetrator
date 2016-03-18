@@ -11,4 +11,4 @@ class TestLexer(unittest.TestCase):
         self.assertListEqual(['2', '3', '+', '7', '"ma + ()gija"', '(', '2', '+', '3', '*', '4', ')', 'LET', 'S', '=', 'X'],e)
 
         e = lex("PRINT \",aaa\"")
-        self.assertListEqual(e, ["PRINT", "\"aaa\""])
+        self.assertListEqual(e, ["PRINT", "\",aaa\""])
