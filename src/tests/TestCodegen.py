@@ -27,7 +27,14 @@ class TestCodegen(unittest.TestCase):
         code = IfNode(NumNode(5), '>', NumNode(2), ReturnNode())
         st = code.codegen()
         self.assertEqual(1,1)
-    
+
+    def test_print(self):
+        code = PrintNode(StrNode("hello world")).codegen()
+        self.assertEqual(len(code.split("\n")), 3)
+
+        code = PrintNode(parse_expr(["2", "+", "3"])).codegen()
+        self.assertEqual(len(code.split("\n")), 16)
+
     def test_all(self):
         s = """
 10 LET X = 3
