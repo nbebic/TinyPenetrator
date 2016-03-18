@@ -7,9 +7,23 @@ class ExprNode(ASTNode):
 
     operator = None
     def codegen(self):
-        prolog = """
+        prolog = ""
+        if self.operator in "+-":
+            prolog = """
 \tPOP DE
 \tPOP HL
+"""
+        else:
+            if self.operator == "*":
+                prolog = """
+\tPOP DE
+\tPOP BC
+"""
+            else:
+                prolog = """
+\tPOP HL
+\tPOP BC
+\tLD B,0
 """
 
         epilog = """
@@ -26,9 +40,11 @@ class ExprNode(ASTNode):
 """
         
         mul = """
+call mult_de_bc
 """
 
         div = """
+div_ac_de
 """
         s = ""
         s += self.left.codegen()

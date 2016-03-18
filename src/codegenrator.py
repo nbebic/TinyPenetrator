@@ -29,6 +29,47 @@ print_num:
 \tcall $2DE3
 \tret
 
+mult_de_bc
+\tld hl, 0
+
+\tsla  e	\t; optimised 1st iteration
+\trl d
+\tjr nc, $+4
+\tld h, b
+\tld l, c
+
+\tld a, 15
+_mult_loop:
+\tadd  hl, hl
+\trl e
+\trl d
+\tjr nc, $+6
+\tadd hl, bc
+\tjr nc, $+3
+\tinc de
+\t
+\tdec a
+\tjr nz, _mult_loop
+\t
+\tret
+
+div_ac_de:
+\tld hl, 0
+\tld b, 16
+
+_div_loop:
+\tsll c
+\trla
+\tadc hl, hl
+\tsbc hl, de
+\tjr nc, $+4
+\tadd  hl, de
+\tdec  c
+\t
+\tdjnz _div_loop
+\t
+\tret
+
 main:
 """
     for l in a:
