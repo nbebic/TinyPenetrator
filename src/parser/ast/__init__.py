@@ -12,3 +12,4 @@ from .PrintNode import *
 from .ExprNode import * 
 from .LineNode import *
 from .IfNode import *
+from .PokeNode import *

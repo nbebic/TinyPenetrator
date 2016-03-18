@@ -73,6 +73,13 @@ def statement(input):
         return IfNode(one, input[relop], two, rest)
     if op == "PRINT":
         return PrintNode(parse_exprlist(input[1:]))
+    if op == 'POKE':
+        com = linq_indexOfFirst(input, lambda x: x == ',')
+        if com == None:
+            raise ParseException('Invalid POKE instruction')
+        dest = parse_expr(input[1:com])
+        oper = parse_expr(input[com+1:])
+        return PokeNode(dest, oper)
     if len(op) >= 3 and op[0:3] == "REM":
         return None
 

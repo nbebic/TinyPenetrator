@@ -3,7 +3,7 @@ from .parser.ast import *
 from .lexer import *
 
 def gencode(prog_list):
-    a = sorted(prog_list, key=lambda x: x.line)
+    a = sorted(prog_list, key=lambda x: int(x.line))
     s = """
 \tORG 32768
 \tld a, 2
@@ -15,7 +15,7 @@ print_str:
 \tjp z, .end
 .loop:
 \tpush hl
-\tcall $0AD9
+\tcall $09F4
 \tpop hl
 \tinc hl
 \tld a, (hl)
