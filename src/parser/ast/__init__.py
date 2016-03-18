@@ -11,3 +11,4 @@ from .GoToNode import *
 from .PrintNode import * 
 from .ExprNode import * 
 from .LineNode import *
+from .IfNode import *

@@ -26,7 +26,7 @@ class TestStatement(unittest.TestCase):
         a = """
         10 LET X = 7
         20 LET Y = 5
-        30 PRINT X + Y
+        30 IF X + Y >= 517 THEN GOTO 10
         """
 
         b = lex(a.upper())

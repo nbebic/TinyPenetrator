@@ -8,10 +8,10 @@ def parse_varlist(t):
     for i in range(len(t)):
         if i % 2 == 1:
             if t[i] != ',':
-                raise ParseException()
+                raise ParseException("Invalid variable list")
         else:
             if len(t[i]) > 1 or (not t[i][0] in 'QWERTYUIOPASDFGHJKLZXCVBNM'):
-                raise ParseException()
+                raise ParseException("Invalid variable name '" + t[i] + "'")
             retval.append(t[i])
     return retval
 
@@ -52,7 +52,7 @@ def statement(input):
         return EndNode()
     if op == 'LET':
         if input[2] != '=':
-            raise ParseException()
+            raise ParseException("Invalid LET instruction")
         var = input[1]
         return LetNode(var, parse_expr(input[3:]))
     if op == 'GOSUB':
@@ -65,26 +65,35 @@ def statement(input):
         relop = linq_indexOfFirst(input, lambda x: '<' in x or '>' in x or '=' in x)
         then = linq_indexOfFirst(input, lambda x: x == 'THEN')
         if relop == None or then == None:
-            raise ParseException()
+            raise ParseException("Invalid IF instruction")
         one = parse_expr(input[1:relop])
         two = parse_expr(input[relop+1:then])
         rest = statement(input[then+1:])
         return IfNode(one, input[relop], two, rest)
     if op == "PRINT":
         return PrintNode(parse_exprlist(input[1:]))
+    if len(op) >= 3 and op[0:3] == "REM":
+        return None
+
+curLine = 0
+def get_curline():
+    global curLine
+    return curLine
 
 def parse_program(t):
+    global curLine
     p = t + ['\n']
     last = -1
     retval = []
     for i in range(len(p)):
         if p[i] == '\n':
+            curLine += 1
             if last == i-1:
                 last = i
                 continue
             if is_number(p[last+1]):
                 retval.append(LineNode(statement(p[last+2:i]), p[last+1]))
             else:
-                retval.append(LineNode(statement(p[last+1:i])))
+                raise ParseException("Unlabeled line")
             last = i
     return retval
