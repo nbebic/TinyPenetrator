@@ -21,8 +21,8 @@ class ExprNode(ASTNode):
 """
             else:
                 prolog = """
-\tPOP HL
 \tPOP BC
+\tPOP HL
 \tLD B,0
 """
 
