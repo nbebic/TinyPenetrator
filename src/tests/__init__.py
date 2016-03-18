@@ -6,3 +6,4 @@ from .TestListParsers import *
 
 
 from .TestNumNode import * 
+from .TestVarNode import * 
