@@ -34,6 +34,12 @@ class TestCodegen(unittest.TestCase):
 
         code = PrintNode([parse_expr(["2", "+", "3"])]).codegen()
         self.assertEqual(len(code.split("\n")), 16)
+        
+        code = PrintNode([parse_expr(["3"])]).codegen()
+        self.assertEqual(len(code.split("\n")), 6)
+        
+        code = PrintNode([parse_expr(["X"])]).codegen()
+        self.assertEqual(len(code.split("\n")), 6)
 
     def test_all(self):
         s = """
