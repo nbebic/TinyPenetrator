@@ -16,11 +16,11 @@ class IfNode(ASTNode):
         s += self.rhs.codegen()
 
         s += """
-        \tPOP DE
-        \tPOP HL
-        \tLF F, 0
-        \tSBC HL, DE
-        """
+\tPOP DE
+\tPOP HL
+\tLF F, 0
+\tSBC HL, DE
+"""
         nxtlbl = 'next%d' % nexts
         nexts += 1
         if self.relop == '<':

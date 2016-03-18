@@ -10,9 +10,9 @@ class LetNode(ASTNode):
     def codegen(self):
         s = self.expr.codegen()
         thing = """
-        \tPOP HL
-        \tLD (vars+%d), HL
-        """
+\tPOP HL
+\tLD (vars+%d), HL
+"""
         s += thing % self.var.address
         return s
 

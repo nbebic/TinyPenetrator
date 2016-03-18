@@ -8,27 +8,28 @@ class ExprNode(ASTNode):
     operator = None
     def codegen(self):
         prolog = """
-        \tPOP DE
-        \tPOP HL"""
+\tPOP DE
+\tPOP HL
+"""
 
         epilog = """
-        \tPUSH HL
-        """
+\tPUSH HL
+"""
 
         add = """
-        \tADD HL, DE
-        """
+\tADD HL, DE
+"""
 
         sub = """
-        \tLD F, 0
-        \tSBC HL, DE
-        """
+\tLD F, 0
+\tSBC HL, DE
+"""
         
         mul = """
-        """
+"""
 
         div = """
-        """
+"""
         s = ""
         s += self.left.codegen()
         s += self.right.codegen()

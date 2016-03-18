@@ -1,4 +1,4 @@
-
+﻿
 from .ASTNode import * 
 
 class NumNode(ASTNode):
@@ -8,6 +8,6 @@ class NumNode(ASTNode):
 
     def codegen(self):
         return """
-        LD HL,%d
-        PUSH HL
-        """ % self.number
+\tLD HL,%d
+\tPUSH HL
+    """ % self.number
