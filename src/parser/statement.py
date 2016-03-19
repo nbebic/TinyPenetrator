@@ -80,6 +80,13 @@ def statement(input):
         dest = parse_expr(input[1:com])
         oper = parse_expr(input[com+1:])
         return PokeNode(dest, oper)
+    if op == 'PEEK':
+        com = linq_indexOfFirst(input, lambda x: x == ',')
+        if com == None:
+            raise ParseException('Invalid PEEK instruction')
+        dest = VarNode(input[1:com])
+        expr = parse_expr(input[com+1:])
+        return PokeNode(dest, expr)
     if op == 'POINT':
         com = linq_indexOfFirst(input, lambda x: x == ',')
         if com == None:

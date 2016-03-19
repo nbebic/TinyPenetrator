@@ -15,3 +15,4 @@ from .IfNode import *
 from .PokeNode import *
 from .PointNode import *
 from .InputNode import * 
+from .PeekNode import * 

@@ -45,6 +45,11 @@ class TestCodegen(unittest.TestCase):
         code = InputNode(["A"])
         st = code.codegen()
         self.assertEqual(1,1)
+
+    def test_peek(self):
+        code = PeekNode(VarNode("A"), parse_expr("2+3"))
+        st = code.codegen()
+        self.assertEqual(len(st.split("\n")), 18)
     
     def test_all(self):
         s = """
