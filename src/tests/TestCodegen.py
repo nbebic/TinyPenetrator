@@ -41,9 +41,15 @@ class TestCodegen(unittest.TestCase):
         code = PrintNode([parse_expr(["X"])]).codegen()
         self.assertEqual(len(code.split("\n")), 6)
 
+    def test_input(self):
+        code = InputNode(["A"])
+        st = code.codegen()
+        self.assertEqual(1,1)
+    
     def test_all(self):
         s = """
-10 POINT 5,5
+10 INPUT A
+15 PRINT A
 20 RETURN
         """
         s = do_all(s)

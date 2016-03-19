@@ -120,6 +120,90 @@ calc_y_addr:
 \tld	h,a
 \tpop	af
 \tret
+
+
+
+; multiplies A with 10 and puts result into A 
+mult_10:
+    ld IX,temp_memory
+    ld (IX+1),A 
+    ld (IX+2),A 
+    
+    sla (IX+1)
+    sla (IX+1)
+    sla (IX+1)
+
+    sla (IX+2)
+    sla (IX+2)
+
+    ld A,0
+    ADD a,(IX+1)
+    ADD A,(IX+2)
+    RET
+
+; Gets current key (or waits for it) and puts it into memory on address HL and increases HL 
+
+input:
+\tLD HL,buffer
+.wait_key:
+\thalt
+\tLD A,(23611)
+\tAND %00100000
+\tJP Z,.wait_key
+\tLD A,(23611)
+\tAND %11011111
+\tLD (23611), A
+\tLD A,(23560)
+\tLD (HL),A
+\t
+\t; print it
+\tinc hl
+\tld (hl),0
+\tdec hl
+\tpush hl
+\tcall print_str
+\tpop hl
+\tLD A,(HL)
+
+\tINC HL 
+\t
+\tCP 13
+\tJP Z,.enter
+\tjp .wait_key
+.enter:
+\tld B,0
+
+\tdec hl 
+\tld a,(hl)
+\tsub 48
+\tadd a,b
+\tld b,a
+\t
+\tdec hl 
+\tld a,(hl)
+\tsub 48
+\tcall mult_10
+\tadd a,b
+\tld b,a
+\t
+\tdec hl 
+\tld a,(hl)
+\tsub 48
+\tcall mult_10
+\tcall mult_10
+\tadd a,b
+\tld b,a
+\t
+\tld c,b
+\tld b,0
+\tRET
+
+buffer: DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+temp_memory: DB 0,0,0,0,0,0,0,0,0,0
+
+input_number: DB 0,0,0,0,0,0,0
+
 main:
 """
     for l in a:
