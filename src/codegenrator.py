@@ -142,9 +142,8 @@ mult_10:
     RET
 
 ; Gets current key (or waits for it) and puts it into memory on address HL and increases HL 
-
 input:
-\tLD HL,buffer
+\tld de, 0
 .wait_key:
 \thalt
 \tLD A,(23611)
@@ -154,56 +153,37 @@ input:
 \tAND %11011111
 \tLD (23611), A
 \tLD A,(23560)
-\tLD (HL),A
-\t
-\t; print it
-\tinc hl
-\tld (hl),0
-\tdec hl
-\tpush hl
+\tLD (buffer),A
+\tld hl, buffer
+\tpush af
+\tpush de
 \tcall print_str
-\tpop hl
-\tLD A,(HL)
-
-\tINC HL 
-\t
+\tpop de
+\tpop af
 \tCP 13
 \tJP Z,.enter
+\tsub 48
+\tld hl, 0
+\tadd hl, de
+\tadd hl, hl
+\tld b, h
+\tld c, l
+\tadd hl, hl
+\tadd hl, hl
+\tadd hl, bc
+\tld b, 0
+\tld c, a
+\tadd hl, bc
+\tld d, h
+\tld e, l
 \tjp .wait_key
 .enter:
-\tld B,0
-
-\tdec hl 
-\tld a,(hl)
-\tsub 48
-\tadd a,b
-\tld b,a
-\t
-\tdec hl 
-\tld a,(hl)
-\tsub 48
-\tcall mult_10
-\tadd a,b
-\tld b,a
-\t
-\tdec hl 
-\tld a,(hl)
-\tsub 48
-\tcall mult_10
-\tcall mult_10
-\tadd a,b
-\tld b,a
-\t
-\tld c,b
-\tld b,0
-\tRET
-
+\tld b, d
+\tld c, e
+\tret
 buffer: DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-
 temp_memory: DB 0,0,0,0,0,0,0,0,0,0
-
 input_number: DB 0,0,0,0,0,0,0
-
 main:
 """
     for l in a:
