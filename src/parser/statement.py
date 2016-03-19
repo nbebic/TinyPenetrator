@@ -50,7 +50,7 @@ def statement(input):
     if op == 'RUN':
         return RunNode()
     if op == 'END':
-        return EndNode()
+        return ReturnNode()
     if op == 'LET':
         if input[2] != '=':
             raise ParseException("Invalid LET instruction")
