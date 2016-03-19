@@ -80,6 +80,13 @@ def statement(input):
         dest = parse_expr(input[1:com])
         oper = parse_expr(input[com+1:])
         return PokeNode(dest, oper)
+    if op == 'POINT':
+        com = linq_indexOfFirst(input, lambda x: x == ',')
+        if com == None:
+            raise ParseException('Invalid POKE instruction')
+        dest = parse_expr(input[1:com])
+        oper = parse_expr(input[com+1:])
+        return PointNode('SET', dest, oper)
     if len(op) >= 3 and op[0:3] == "REM":
         return None
 

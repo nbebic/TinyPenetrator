@@ -43,13 +43,8 @@ class TestCodegen(unittest.TestCase):
 
     def test_all(self):
         s = """
-10 LET A = 16384
-20 LET C = 6144
-30 POKE A, 255
-40 LET A = A + 1
-50 LET C = C - 1
-60 IF C > 0 THEN GOTO 30
-70 RETURN
+10 POINT 5,5
+20 RETURN
         """
         s = do_all(s)
         print(s)

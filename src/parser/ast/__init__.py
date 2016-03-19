@@ -13,3 +13,4 @@ from .ExprNode import *
 from .LineNode import *
 from .IfNode import *
 from .PokeNode import *
+from .PointNode import *

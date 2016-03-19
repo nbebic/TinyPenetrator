@@ -37,7 +37,6 @@ mult_de_bc
 \tjr nc, $+4
 \tld h, b
 \tld l, c
-
 \tld a, 15
 _mult_loop:
 \tadd  hl, hl
@@ -68,8 +67,58 @@ _div_loop:
 \tdjnz _div_loop
 \t
 \tret
-
-
+plot_xy:
+\tpush	af
+\tpush	bc
+\tpush	hl
+\tld	a,b
+\tcall	calc_y_addr
+\tld	a,c
+\tand	%11111000
+\tsrl	a
+\tsrl	a
+\tsrl	a
+\tor	l
+\tld	l,a
+\tld	a,c
+\tand	%00000111
+\tld	b,%10000000
+_pixel_shift:
+\tcp	0
+\tjr	z,_shift_done	
+\tsrl	b
+\tdec	a
+\tjr	_pixel_shift
+_shift_done:
+\tld	a,b
+\tor	(hl)
+\tld	(hl),a	
+\tpop	hl
+\tpop	bc
+\tpop	af
+\tret	
+calc_y_addr:
+\tld	hl,$4000
+\tpush	af
+\tand	%00000111
+\tor	h
+\tld	h,apop	af
+\tpush	af
+\tand	%00111000
+\tsla	a
+\tsla	a
+\tor	l
+\tld	l,a
+\tpop	af
+\tpush	af
+\tand	%11000000
+\tsrl	a
+\tsrl	a
+\tsrl	a
+\tor	h
+\tld	h,a
+\tpop	af
+\tret
 main:
 """
     for l in a:
