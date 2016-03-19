@@ -102,7 +102,8 @@ calc_y_addr:
 \tpush	af
 \tand	%00000111
 \tor	h
-\tld	h,apop	af
+\tld	h,a
+\tpop	af
 \tpush	af
 \tand	%00111000
 \tsla	a
