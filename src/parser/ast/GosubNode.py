@@ -5,4 +5,7 @@ class GosubNode(ASTNode):
     def __init__(self, dest):
         self.dest = dest
 
+    def codegen(self):
+        return "call line%d" % self.dest
+
 

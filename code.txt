@@ -1,0 +1,216 @@
+	ORG 32768
+	ld a, 2
+	call 5633
+	jp main
+print_str:
+	ld a, (hl)
+	or a
+	jp z, .end
+.loop:
+	push hl
+	call $09F4
+	pop hl
+	inc hl
+	ld a, (hl)
+	or a
+	jp nz, .loop
+.end:
+	ret
+
+print_num:
+	call $2D2B
+	call $2DE3
+	ret
+
+mult_de_bc
+	ld hl, 0
+
+	sla  e		; optimised 1st iteration
+	rl d
+	jr nc, $+4
+	ld h, b
+	ld l, c
+	ld a, 15
+_mult_loop:
+	add  hl, hl
+	rl e
+	rl d
+	jr nc, $+6
+	add hl, bc
+	jr nc, $+3
+	inc de
+	
+	dec a
+	jr nz, _mult_loop
+	
+	ret
+
+div_hl_c:
+	xor a
+	ld b, 16
+
+_div_loop:
+	add hl, hl
+	rla
+	cp c
+	jr c, $+4
+	sub c
+	inc l
+	
+	djnz _div_loop
+	
+	ret
+plot_xy:
+	push	af
+	push	bc
+	push	hl
+	ld	a,b
+	call	calc_y_addr
+	ld	a,c
+	and	%11111000
+	srl	a
+	srl	a
+	srl	a
+	or	l
+	ld	l,a
+	ld	a,c
+	and	%00000111
+	ld	b,%10000000
+_pixel_shift:
+	cp	0
+	jr	z,_shift_done	
+	srl	b
+	dec	a
+	jr	_pixel_shift
+_shift_done:
+	ld	a,b
+	or	(hl)
+	ld	(hl),a	
+	pop	hl
+	pop	bc
+	pop	af
+	ret	
+calc_y_addr:
+	ld	hl,$4000
+	push	af
+	and	%00000111
+	or	h
+	ld	h,a
+	pop	af
+	push	af
+	and	%00111000
+	sla	a
+	sla	a
+	or	l
+	ld	l,a
+	pop	af
+	push	af
+	and	%11000000
+	srl	a
+	srl	a
+	srl	a
+	or	h
+	ld	h,a
+	pop	af
+	ret
+
+
+
+; multiplies A with 10 and puts result into A 
+mult_10:
+    ld IX,temp_memory
+    ld (IX+1),A 
+    ld (IX+2),A 
+    
+    sla (IX+1)
+    sla (IX+1)
+    sla (IX+1)
+
+    sla (IX+2)
+    sla (IX+2)
+
+    ld A,0
+    ADD a,(IX+1)
+    ADD A,(IX+2)
+    RET
+
+; Gets current key (or waits for it) and puts it into memory on address HL and increases HL 
+
+input:
+	LD HL,buffer
+.wait_key:
+	halt
+	LD A,(23611)
+	AND %00100000
+	JP Z,.wait_key
+	LD A,(23611)
+	AND %11011111
+	LD (23611), A
+	LD A,(23560)
+	LD (HL),A
+	
+	; print it
+	inc hl
+	ld (hl),0
+	dec hl
+	push hl
+	call print_str
+	pop hl
+	LD A,(HL)
+
+	INC HL 
+	
+	CP 13
+	JP Z,.enter
+	jp .wait_key
+.enter:
+	ld B,0
+
+	dec hl 
+	ld a,(hl)
+	sub 48
+	add a,b
+	ld b,a
+	
+	dec hl 
+	ld a,(hl)
+	sub 48
+	call mult_10
+	add a,b
+	ld b,a
+	
+	dec hl 
+	ld a,(hl)
+	sub 48
+	call mult_10
+	call mult_10
+	add a,b
+	ld b,a
+	
+	ld c,b
+	ld b,0
+	RET
+
+buffer: DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+temp_memory: DB 0,0,0,0,0,0,0,0,0,0
+
+input_number: DB 0,0,0,0,0,0,0
+
+main:
+
+line10:
+	call input
+	LD (vars+0), BC
+
+line15:
+
+        LD BC,(vars+0)
+        PUSH BC
+        	POP BC
+	CALL print_num
+
+line20:
+	RET
+vars: dw 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+

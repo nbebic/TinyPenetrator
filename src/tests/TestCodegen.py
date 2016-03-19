@@ -48,9 +48,15 @@ class TestCodegen(unittest.TestCase):
     
     def test_all(self):
         s = """
-10 INPUT A
-15 PRINT A
-20 RETURN
+10 let a = 1
+20 let b = 0
+30 point b, a
+40 let b = b + 1
+50 if a < b then goto 60
+55 goto 30
+60 let a = a + 1
+70 if 192 > a then goto 20
+80 return
         """
         s = do_all(s)
         print(s)
